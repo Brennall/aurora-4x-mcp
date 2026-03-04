@@ -13,7 +13,7 @@ interface EventLogEntry {
 export const registerGetEventLogTool = (server: McpServer) => {
     server.tool(
         'getEventLog',
-        'Get game events since a given time. Filters noise events and enforces race/game safety. If lastGameTime is omitted, returns the last 50 events.',
+        'Get game events since a given time. Filters noise events and enforces race/game safety. If lastGameTime is omitted, returns the last 50 events. Output includes: date, eventType (human-readable), eventTypeId (for classification), message text, and eventTime (use newestEventTime as lastGameTime for next session). Noise events excluded: scientist experience, routine fleet movements, and other high-frequency low-value events.',
         {
             gameId: z.number(),
             raceId: z.number(),

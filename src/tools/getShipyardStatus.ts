@@ -29,7 +29,7 @@ interface BuildTaskRow {
 export const registerGetShipyardStatusTool = (server: McpServer) => {
     server.tool(
         'getShipyardStatus',
-        'Get shipyard status including expansions and ships under construction. Note: expansion progress is held in memory — force a game save before querying for accurate expansion data.',
+        'Get shipyard status including expansions and ships under construction. Note: expansion progress is held in memory — force a game save before querying for accurate expansion data. Returns two sections: shipyards (name, type, capacity, slipways, and expansion task if active) and buildTasks (ship name, class, BP progress, percentage complete, and pause status). Covers both new construction and refits.',
         {
             gameId: z.number(),
             raceId: z.number(),

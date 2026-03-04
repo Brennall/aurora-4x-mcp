@@ -62,7 +62,7 @@ const DELTA_KEYS = [
 export const registerGetEmpireMineralsTool = (server: McpServer) => {
     server.tool(
         'getEmpireMinerals',
-        'Get the current mineral status for a specific game and race',
+        'Get the current mineral status for a specific game and race. Returns minerals as a named key-value array with stock and per-increment delta for each mineral, eliminating column-adjacency confusion. Defaults to Earth colony if colony parameter is omitted. Delta values show change since last 5-day increment: positive means production exceeds consumption. All 11 minerals returned in fixed order: Duranium through Gallicite.',
         {
             gameId: z.number(),
             raceId: z.number(),

@@ -32,7 +32,7 @@ interface GameDateRow {
 export const registerGetResearchStatusTool = (server: McpServer) => {
     server.tool(
         'getResearchStatus',
-        'Get current research projects with completion forecasts and unassigned scientists. Results sorted by estimated completion date.',
+        'Get current research projects with completion forecasts and unassigned scientists. Results sorted by estimated completion date. Active research includes: scientist name, specialisation field, technology name, lab count, RP remaining, research bonus, in-field status, effective multiplier, annual RP rate, days remaining, estimated completion date, and health risk level. Unassigned scientists include: name, field, research bonus, max labs capacity, and health risk. A researchBonus of 0 with high maxLabs indicates a Research Admin, not a researcher.',
         {
             gameId: z.number(),
             raceId: z.number(),
