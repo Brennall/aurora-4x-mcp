@@ -25,3 +25,4 @@ export class FctEventColour {
   })
   textColour: number | null;
 }
+

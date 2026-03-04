@@ -395,3 +395,4 @@ export class DimAutomatedClassDesign {
   })
   decoyLaunchers: number | null;
 }
+

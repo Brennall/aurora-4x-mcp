@@ -20,3 +20,4 @@ export class FctGroundUnitSeries {
   })
   raceId: number;
 }
+

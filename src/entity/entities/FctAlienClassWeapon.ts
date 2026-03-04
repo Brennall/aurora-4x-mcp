@@ -23,3 +23,4 @@ export class FctAlienClassWeapon {
   @Column('double', { name: 'LastFired', nullable: true, default: () => '0' })
   lastFired: number | null;
 }
+

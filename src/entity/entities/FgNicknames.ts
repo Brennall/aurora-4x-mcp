@@ -16,3 +16,4 @@ export class FgNicknames {
   })
   nickname: string | null;
 }
+

@@ -282,3 +282,4 @@ export class DimPlanetaryInstallation {
   })
   taxableWorkers: boolean | null;
 }
+

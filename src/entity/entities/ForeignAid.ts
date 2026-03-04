@@ -24,3 +24,4 @@ export class ForeignAid {
   @Column("integer", { name: "Amount", nullable: true, default: () => "NULL" })
   amount: number | null;
 }
+

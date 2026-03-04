@@ -74,3 +74,4 @@ export class FctFireControlAssignment {
   })
   minimumAmmRange: number | null;
 }
+

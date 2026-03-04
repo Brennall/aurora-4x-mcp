@@ -32,3 +32,4 @@ export class DimTraitGroup {
   })
   opposite2: number | null;
 }
+

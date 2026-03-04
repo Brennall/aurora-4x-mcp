@@ -72,3 +72,4 @@ export class FctShippingLines {
   })
   commercialEngines: number | null;
 }
+

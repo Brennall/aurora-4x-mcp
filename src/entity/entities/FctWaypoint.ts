@@ -61,3 +61,4 @@ export class FctWaypoint {
   })
   jumpPointId: number | null;
 }
+

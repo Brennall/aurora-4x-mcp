@@ -135,3 +135,4 @@ export class FctAlienRace {
   })
   randomNameOrder: number | null;
 }
+

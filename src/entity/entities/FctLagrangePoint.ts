@@ -40,3 +40,4 @@ export class FctLagrangePoint {
   @Column('double', { name: 'Bearing', nullable: true, default: () => 'NULL' })
   bearing: number | null;
 }
+

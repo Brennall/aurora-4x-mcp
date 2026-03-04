@@ -109,3 +109,4 @@ export class FctStar {
   })
   currentOrbitalSpeed: number | null;
 }
+

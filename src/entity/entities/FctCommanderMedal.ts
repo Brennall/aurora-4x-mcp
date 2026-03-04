@@ -27,3 +27,4 @@ export class FctCommanderMedal {
   @Column("text", { name: "AwardReason", nullable: true })
   awardReason: string | null;
 }
+

@@ -14,3 +14,4 @@ export class FctSquadron {
   @Column('integer', { name: 'ParentShipID' })
   parentShipId: number;
 }
+

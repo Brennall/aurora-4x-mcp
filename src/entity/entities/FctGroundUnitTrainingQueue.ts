@@ -49,3 +49,4 @@ export class FctGroundUnitTrainingQueue {
   })
   fieldPosition: number | null;
 }
+

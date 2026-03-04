@@ -79,3 +79,4 @@ export class DimSystemAge {
   @Column('double', { name: 'Age10', nullable: true, default: () => 'NULL' })
   age10: number | null;
 }
+

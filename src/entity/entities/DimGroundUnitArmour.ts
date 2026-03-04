@@ -29,3 +29,4 @@ export class DimGroundUnitArmour {
   })
   armourTypeId: number | null;
 }
+

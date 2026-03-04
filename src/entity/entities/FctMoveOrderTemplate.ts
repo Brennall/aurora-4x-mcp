@@ -121,3 +121,4 @@ export class FctMoveOrderTemplate {
   })
   surveyPointsRequired: number | null;
 }
+

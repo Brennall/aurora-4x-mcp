@@ -11,3 +11,4 @@ export class FctSystemBodySurveys {
   @PrimaryColumn('integer', { name: 'SystemBodyID' })
   systemBodyId: number;
 }
+

@@ -48,3 +48,4 @@ export class DimAutomatedGroundTemplateDesign {
   })
   requiredTechId: number | null;
 }
+

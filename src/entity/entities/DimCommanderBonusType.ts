@@ -52,3 +52,4 @@ export class DimCommanderBonusType {
   })
   maximumBonus: number | null;
 }
+

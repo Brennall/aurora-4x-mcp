@@ -280,3 +280,4 @@ export class FctMissileType {
   })
   mspShipDecoy: number | null;
 }
+

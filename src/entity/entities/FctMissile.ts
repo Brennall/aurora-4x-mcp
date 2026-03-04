@@ -24,3 +24,4 @@ export class FctMissile {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

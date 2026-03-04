@@ -21,3 +21,4 @@ export class FctResearchQueue {
   })
   researchOrder: number | null;
 }
+

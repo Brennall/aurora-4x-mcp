@@ -32,3 +32,4 @@ export class DimDesignPhilosophyGroundForceDeployments {
   @Column('integer', { name: 'Priority', nullable: true, default: () => '0' })
   priority: number | null;
 }
+

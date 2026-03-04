@@ -10,3 +10,4 @@ export const registerGetEmpireLogisticsTools = (server: McpServer) => {
   registerGetEmpireResourcesTool(server);
   registerGetEmpireWealthTool(server);
 };
+

@@ -20,3 +20,4 @@ export class FctRaceSurveyLocation {
   })
   locationNumber: number | null;
 }
+

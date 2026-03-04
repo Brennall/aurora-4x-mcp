@@ -26,3 +26,4 @@ export class FctAlienSystem {
   })
   detectRaceId: number | null;
 }
+

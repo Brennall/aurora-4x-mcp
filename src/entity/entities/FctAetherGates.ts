@@ -31,3 +31,4 @@ export class FctAetherGates {
   })
   cooldownTime: number | null;
 }
+

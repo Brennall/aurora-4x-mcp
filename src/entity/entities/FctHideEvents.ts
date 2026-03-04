@@ -11,3 +11,4 @@ export class FctHideEvents {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

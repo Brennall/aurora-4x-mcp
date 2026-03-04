@@ -92,3 +92,4 @@ export class FctAlienShip {
   })
   penetratingDamage: number | null;
 }
+

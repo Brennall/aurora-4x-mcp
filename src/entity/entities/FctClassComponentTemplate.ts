@@ -30,3 +30,4 @@ export class FctClassComponentTemplate {
   })
   standardComponentId: number | null;
 }
+

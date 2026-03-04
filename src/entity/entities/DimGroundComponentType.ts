@@ -135,3 +135,4 @@ export class DimGroundComponentType {
   })
   groundWeapon: boolean | null;
 }
+

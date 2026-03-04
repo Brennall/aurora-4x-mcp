@@ -8,3 +8,4 @@ export const registerSchemaTools = (server: McpServer) => {
   registerGetTableDetailsTool(server);
   registerSearchColumnsTool(server);
 };
+

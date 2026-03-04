@@ -679,3 +679,4 @@ export class FctDesignPhilosophy {
   })
   launcherAmmSize: number | null;
 }
+

@@ -42,3 +42,4 @@ export class FctAncientConstruct {
   @Column('boolean', { name: 'Active', nullable: true, default: () => 'FALSE' })
   active: boolean | null;
 }
+

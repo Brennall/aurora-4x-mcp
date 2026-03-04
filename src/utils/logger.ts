@@ -14,7 +14,7 @@ const logFormat = winston.format.combine(
 );
 
 // Create logs directory if it doesn't exist
-const logsDir = path.join(process.cwd(), 'logs');
+const logsDir = path.join('C:\\Aurora-4X-MCP', 'logs');
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
@@ -44,6 +44,7 @@ export const logger = winston.createLogger({
 if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new winston.transports.Console({
+      stderrLevels: ['error', 'warn', 'info', 'debug', 'verbose', 'silly'],
       format: winston.format.combine(winston.format.colorize(), logFormat),
     })
   );
@@ -51,3 +52,4 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Export default logger instance
 export default logger;
+

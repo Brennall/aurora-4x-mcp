@@ -55,3 +55,4 @@ export class FctResearchProject {
   })
   assignNew: boolean | null;
 }
+

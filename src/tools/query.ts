@@ -47,3 +47,4 @@ export const registerQueryTool = (server: McpServer) => {
     }
   );
 };
+

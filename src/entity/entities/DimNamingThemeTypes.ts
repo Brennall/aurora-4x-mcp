@@ -24,3 +24,4 @@ export class DimNamingThemeTypes {
   })
   raceNameEligible: boolean | null;
 }
+

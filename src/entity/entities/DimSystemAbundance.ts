@@ -29,3 +29,4 @@ export class DimSystemAbundance {
   })
   modifier: number | null;
 }
+

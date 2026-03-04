@@ -25,3 +25,4 @@ export class DimCondition {
   })
   displayOrder: number | null;
 }
+

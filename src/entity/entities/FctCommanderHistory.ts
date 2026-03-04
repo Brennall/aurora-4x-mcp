@@ -22,3 +22,4 @@ export class FctCommanderHistory {
   @Column('double', { name: 'GameTime', nullable: true })
   gameTime: number | null;
 }
+

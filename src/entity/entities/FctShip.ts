@@ -388,3 +388,4 @@ export class FctShip {
   })
   designateAsTarget: number | null;
 }
+

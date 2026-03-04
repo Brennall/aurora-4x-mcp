@@ -66,3 +66,4 @@ export class DimOperationalGroup {
   })
   staticForce: boolean | null;
 }
+

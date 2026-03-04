@@ -14,3 +14,4 @@ export class FctWindowPosition {
   @Column('integer', { name: 'Top', nullable: true, default: () => '0' })
   top: number | null;
 }
+

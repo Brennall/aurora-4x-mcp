@@ -49,3 +49,4 @@ export const registerSearchColumnsTool = (server: McpServer) => {
     }
   );
 };
+

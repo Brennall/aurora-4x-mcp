@@ -11,3 +11,4 @@ export class FctDesignPhilosophyTechProgressionCategories {
   @PrimaryColumn('integer', { name: 'TechProgressionCategoryID' })
   techProgressionCategoryId: number;
 }
+

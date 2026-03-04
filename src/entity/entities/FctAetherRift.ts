@@ -17,3 +17,4 @@ export class FctAetherRift {
   @Column('double', { name: 'Diameter', nullable: true, default: () => '0' })
   diameter: number | null;
 }
+

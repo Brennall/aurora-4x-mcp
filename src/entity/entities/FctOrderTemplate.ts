@@ -28,3 +28,4 @@ export class FctOrderTemplate {
   @Column('integer', { name: 'RaceID', nullable: true, default: () => '0' })
   raceId: number | null;
 }
+

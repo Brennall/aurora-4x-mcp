@@ -117,3 +117,4 @@ export class FctTechSystem {
   })
   automaticResearch: boolean | null;
 }
+

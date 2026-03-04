@@ -18,3 +18,4 @@ export class FctPopulationWeapon {
   @Column('double', { name: 'Amount', nullable: true, default: () => 'NULL' })
   amount: number | null;
 }
+

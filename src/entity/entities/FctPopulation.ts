@@ -270,3 +270,4 @@ export class FctPopulation {
   })
   geneticProdStatus: boolean | null;
 }
+

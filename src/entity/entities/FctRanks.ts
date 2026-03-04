@@ -23,3 +23,4 @@ export class FctRanks {
   @Column('integer', { name: 'GameID', nullable: true })
   gameId: number | null;
 }
+

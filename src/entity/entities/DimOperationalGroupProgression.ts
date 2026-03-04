@@ -28,3 +28,4 @@ export class DimOperationalGroupProgression {
   @Column('text', { name: 'Description', nullable: true })
   description: string | null;
 }
+

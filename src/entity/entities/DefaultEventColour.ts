@@ -43,3 +43,4 @@ export class DefaultEventColour {
   @Column('text', { name: 'Test', nullable: true })
   test: string | null;
 }
+

@@ -1,5 +1,4 @@
 import { getDb } from '../db';
-import { Database } from 'better-sqlite3';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 
@@ -59,7 +58,7 @@ async function getHighestRankingCommanders(
   gameId: number,
   raceId: number
 ): Promise<RoleplayContext['commanders']> {
-  const db = (await getDb()) as Database;
+  const db = getDb();
   try {
     // Query for Naval commanders (Type 0)
     const navalQuery = `
@@ -115,10 +114,10 @@ async function getHighestRankingCommanders(
       LIMIT 1;
     `;
 
-    const naval = db.prepare(navalQuery).get(gameId, raceId) as DbCommander;
-    const ground = db.prepare(groundQuery).get(gameId, raceId) as DbCommander;
-    const science = db.prepare(scienceQuery).get(gameId, raceId) as DbCommander;
-    const admin = db.prepare(adminQuery).get(gameId, raceId) as DbCommander;
+    const naval = db.prepare(navalQuery).get(gameId, raceId) as unknown as DbCommander;
+    const ground = db.prepare(groundQuery).get(gameId, raceId) as unknown as DbCommander;
+    const science = db.prepare(scienceQuery).get(gameId, raceId) as unknown as DbCommander;
+    const admin = db.prepare(adminQuery).get(gameId, raceId) as unknown as DbCommander;
 
     // Get traits for each commander
     const traitsQuery = `
@@ -136,7 +135,7 @@ async function getHighestRankingCommanders(
         ground?.CommanderID || 0,
         science?.CommanderID || 0,
         admin?.CommanderID || 0
-      ) as CommanderTrait[];
+      ) as unknown as CommanderTrait[];
 
     const result: RoleplayContext['commanders'] = {
       naval: [],
@@ -254,3 +253,4 @@ Guidelines:
     }
   );
 };
+

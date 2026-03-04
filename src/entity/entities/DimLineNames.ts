@@ -13,3 +13,4 @@ export class DimLineNames {
   })
   lineNames: string | null;
 }
+

@@ -30,3 +30,4 @@ export class DimTradeGoods {
   @Column("boolean", { name: "RareGood", nullable: true, default: () => "0" })
   rareGood: boolean | null;
 }
+

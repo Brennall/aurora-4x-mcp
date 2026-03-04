@@ -20,3 +20,4 @@ export class DimCompanyNames {
   })
   companyType: number | null;
 }
+

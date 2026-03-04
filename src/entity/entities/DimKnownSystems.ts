@@ -87,3 +87,4 @@ export class DimKnownSystems {
   @Column('integer', { name: 'GameID', nullable: true, default: () => '0' })
   gameId: number | null;
 }
+

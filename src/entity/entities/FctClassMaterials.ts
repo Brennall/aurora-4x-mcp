@@ -18,3 +18,4 @@ export class FctClassMaterials {
   @Column("double", { name: "Amount", nullable: true, default: () => "NULL" })
   amount: number | null;
 }
+

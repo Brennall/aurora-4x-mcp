@@ -96,7 +96,7 @@ export const registerGetCombatLogTool = (server: McpServer) => {
             )
             ORDER BY FCT_GameLog.Time DESC`
           )
-          .all(gameId, raceId) as CombatLogEntry[];
+          .all(gameId, raceId) as unknown as CombatLogEntry[];
 
         if (!combatLogs || combatLogs.length === 0) {
           return {
@@ -141,3 +141,4 @@ export const registerGetCombatLogTool = (server: McpServer) => {
     }
   );
 };
+

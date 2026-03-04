@@ -81,3 +81,4 @@ export class FctSubFleets {
   })
   useAnchorDestination: boolean | null;
 }
+

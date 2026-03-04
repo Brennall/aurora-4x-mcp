@@ -24,3 +24,4 @@ export class FctPausedResearch {
   })
   raceId: number;
 }
+

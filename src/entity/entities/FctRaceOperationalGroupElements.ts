@@ -34,3 +34,4 @@ export class FctRaceOperationalGroupElements {
   })
   keyElement: boolean | null;
 }
+

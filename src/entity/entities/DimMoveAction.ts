@@ -174,3 +174,4 @@ export class DimMoveAction {
   })
   stationaryAction: boolean | null;
 }
+

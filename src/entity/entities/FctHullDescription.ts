@@ -24,3 +24,4 @@ export class FctHullDescription {
   })
   hullAbbr: string | null;
 }
+

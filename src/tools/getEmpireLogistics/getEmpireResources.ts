@@ -52,7 +52,7 @@ export const registerGetEmpireResourcesTool = (server: McpServer) => {
             FROM FCT_Race 
             WHERE GameID = ? AND RaceID = ?`
           )
-          .get(gameId, raceId) as RaceResourceData;
+          .get(gameId, raceId) as unknown as RaceResourceData;
 
         if (!race) {
           return {
@@ -115,3 +115,4 @@ export const registerGetEmpireResourcesTool = (server: McpServer) => {
     }
   );
 };
+

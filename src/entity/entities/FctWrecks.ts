@@ -91,3 +91,4 @@ export class FctWrecks {
   @Column('double', { name: 'Gallicite', nullable: true, default: () => '0' })
   gallicite: number | null;
 }
+

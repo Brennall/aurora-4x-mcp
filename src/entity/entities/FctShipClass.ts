@@ -603,3 +603,4 @@ export class FctShipClass {
   })
   decoyCapacity: number | null;
 }
+

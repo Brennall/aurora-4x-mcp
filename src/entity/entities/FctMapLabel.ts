@@ -44,3 +44,4 @@ export class FctMapLabel {
   @Column('double', { name: 'Ycor', nullable: true, default: () => 'NULL' })
   ycor: number | null;
 }
+

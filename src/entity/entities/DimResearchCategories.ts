@@ -141,3 +141,4 @@ export class DimResearchCategories {
   @Column("text", { name: "RadioText", nullable: true })
   radioText: string | null;
 }
+

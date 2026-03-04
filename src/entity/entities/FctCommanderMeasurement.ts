@@ -18,3 +18,4 @@ export class FctCommanderMeasurement {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

@@ -18,3 +18,4 @@ export class FctWreckTech {
   })
   percentage: number | null;
 }
+

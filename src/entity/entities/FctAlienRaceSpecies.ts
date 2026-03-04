@@ -14,3 +14,4 @@ export class FctAlienRaceSpecies {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

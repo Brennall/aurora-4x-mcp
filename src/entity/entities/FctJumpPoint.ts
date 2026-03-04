@@ -43,3 +43,4 @@ export class FctJumpPoint {
   })
   jumpGateRaceId: number | null;
 }
+

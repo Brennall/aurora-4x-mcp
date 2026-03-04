@@ -14,3 +14,4 @@ export class FctClassGroundTemplates {
   @Column("integer", { name: "Number", nullable: true })
   number: number | null;
 }
+

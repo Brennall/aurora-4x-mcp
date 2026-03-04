@@ -18,3 +18,4 @@ export const registerTools = (server: McpServer) => {
   registerGetEmpireLogisticsTools(server);
   registerSystemConnectionsTool(server);
 };
+

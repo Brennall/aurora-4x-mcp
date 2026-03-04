@@ -24,3 +24,4 @@ export class FctWeaponAssignment {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

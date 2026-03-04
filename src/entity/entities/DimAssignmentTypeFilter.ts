@@ -82,3 +82,4 @@ export class DimAssignmentTypeFilter {
   @Column("integer", { name: "Academy", nullable: true, default: () => "0" })
   academy: number | null;
 }
+

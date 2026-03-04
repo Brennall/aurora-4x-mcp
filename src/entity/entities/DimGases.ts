@@ -41,3 +41,4 @@ export class DimGases {
   @Column('double', { name: 'DangerousLevel', nullable: true })
   dangerousLevel: number | null;
 }
+

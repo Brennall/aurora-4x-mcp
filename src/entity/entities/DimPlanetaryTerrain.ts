@@ -66,3 +66,4 @@ export class DimPlanetaryTerrain {
   })
   jungleTerrain: boolean | null;
 }
+

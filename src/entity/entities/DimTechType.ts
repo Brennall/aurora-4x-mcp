@@ -34,3 +34,4 @@ export class DimTechType {
   })
   ruinTechType: boolean | null;
 }
+

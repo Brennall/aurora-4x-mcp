@@ -14,3 +14,4 @@ export class FctIncrements {
   @Column("integer", { name: "Length", nullable: true, default: () => "0" })
   length: number | null;
 }
+

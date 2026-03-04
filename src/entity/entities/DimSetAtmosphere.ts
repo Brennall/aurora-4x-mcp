@@ -39,3 +39,4 @@ export class DimSetAtmosphere {
   })
   description: string | null;
 }
+

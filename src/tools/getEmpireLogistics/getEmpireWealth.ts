@@ -49,7 +49,7 @@ export const registerGetEmpireWealthTool = (server: McpServer) => {
             FROM FCT_Race 
             WHERE GameID = ? AND RaceID = ?`
           )
-          .get(gameId, raceId) as WealthStats;
+          .get(gameId, raceId) as unknown as WealthStats;
 
         if (!wealthStats) {
           return {
@@ -88,7 +88,7 @@ export const registerGetEmpireWealthTool = (server: McpServer) => {
              WHERE GameID = ? AND RaceID = ? 
              ORDER BY IncrementTime DESC`
           )
-          .all(gameId, raceId) as WealthHistory[];
+          .all(gameId, raceId) as unknown as WealthHistory[];
 
         // Format the timestamps
         const formattedHistory = wealthHistory.map((entry, index) => {
@@ -123,7 +123,7 @@ export const registerGetEmpireWealthTool = (server: McpServer) => {
             GROUP BY wu.WealthUseID, wu.Description, wu.Income, wu.DisplayOrder
             ORDER BY wu.DisplayOrder, wu.Description`
           )
-          .all(gameId, raceId) as WealthUsage[];
+          .all(gameId, raceId) as unknown as WealthUsage[];
 
         // Separate and format income and expenses
         const income = wealthUsage
@@ -201,3 +201,4 @@ export const registerGetEmpireWealthTool = (server: McpServer) => {
     }
   );
 };
+

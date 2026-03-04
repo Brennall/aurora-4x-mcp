@@ -38,3 +38,4 @@ export class FctMineralDeposit {
   })
   originalAcc: number | null;
 }
+

@@ -47,3 +47,4 @@ export class DimEventType {
   })
   aiInterrupt: number | null;
 }
+

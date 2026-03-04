@@ -20,3 +20,4 @@ export class FctPopulationInstallations {
   @Column('double', { name: 'Amount', nullable: true, default: () => '0' })
   amount: number | null;
 }
+

@@ -48,3 +48,4 @@ export class FctRaceMedals {
   @Column('text', { name: 'Abbreviation', nullable: true })
   abbreviation: string | null;
 }
+

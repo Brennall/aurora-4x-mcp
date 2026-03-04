@@ -22,3 +22,4 @@ export class FctWealthHistory {
   })
   wealthAmount: number | null;
 }
+

@@ -44,3 +44,4 @@ export class FctOrganizationNode {
   })
   fieldPosition: number | null;
 }
+

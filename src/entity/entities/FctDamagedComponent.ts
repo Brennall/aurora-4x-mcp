@@ -14,3 +14,4 @@ export class FctDamagedComponent {
   @Column("integer", { name: "Number", nullable: true, default: () => "1" })
   number: number | null;
 }
+

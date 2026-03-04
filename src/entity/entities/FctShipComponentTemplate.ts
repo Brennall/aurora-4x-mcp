@@ -86,3 +86,4 @@ export class FctShipComponentTemplate {
   })
   componentValue: number | null;
 }
+

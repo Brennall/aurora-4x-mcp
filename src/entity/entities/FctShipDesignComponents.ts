@@ -349,3 +349,4 @@ export class FctShipDesignComponents {
   @Column("integer", { name: "ExtraHTK", nullable: true, default: () => "0" })
   extraHtk: number | null;
 }
+

@@ -36,3 +36,4 @@ export class FctGroundUnitFormationTemplate {
   })
   formationsTrained: number | null;
 }
+

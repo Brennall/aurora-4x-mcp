@@ -36,3 +36,4 @@ export class FctAcidAttack {
   })
   lastDamageTime: number | null;
 }
+

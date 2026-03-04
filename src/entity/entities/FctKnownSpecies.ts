@@ -14,3 +14,4 @@ export class FctKnownSpecies {
   @Column('integer', { name: 'Status', nullable: true, default: () => '0' })
   status: number | null;
 }
+

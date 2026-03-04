@@ -77,3 +77,4 @@ export class FctNavalAdminCommand {
   })
   minimumRankPriority: number | null;
 }
+

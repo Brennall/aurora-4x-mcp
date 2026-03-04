@@ -87,3 +87,4 @@ export class DimRuin {
   @Column("integer", { name: "RandomDSTS", nullable: true })
   randomDsts: number | null;
 }
+

@@ -17,3 +17,4 @@ export class FctElementRecharge {
   })
   rechargeRemaining: number | null;
 }
+

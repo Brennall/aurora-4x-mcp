@@ -423,3 +423,4 @@ export class FctGame {
   })
   minorRaceChance: number | null;
 }
+

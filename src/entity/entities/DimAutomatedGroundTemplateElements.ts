@@ -43,3 +43,4 @@ export class DimAutomatedGroundTemplateElements {
   })
   construction: boolean | null;
 }
+

@@ -102,3 +102,4 @@ export class FctShipyardTask {
   })
   useComponents: boolean | null;
 }
+

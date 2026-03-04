@@ -42,3 +42,4 @@ export class FctPopTradeBalance {
   })
   lastTradeBalance: number | null;
 }
+

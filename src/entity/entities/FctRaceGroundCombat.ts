@@ -18,3 +18,4 @@ export class FctRaceGroundCombat {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

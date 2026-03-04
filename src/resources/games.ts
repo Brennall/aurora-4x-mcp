@@ -25,7 +25,7 @@ export const registerGamesResource = (server: McpServer) => {
         .prepare(
           'SELECT GameID, GameName, GameTime, StartYear FROM FCT_Game ORDER BY GameID'
         )
-        .all() as Game[];
+        .all() as unknown as Game[];
 
       // Get player races for each game
       const gamesWithRaces = games.map((game) => {
@@ -33,7 +33,7 @@ export const registerGamesResource = (server: McpServer) => {
           .prepare(
             'SELECT RaceID, RaceName FROM FCT_Race WHERE GameID = ? AND NPR = 0'
           )
-          .all(game.GameID) as Race[];
+          .all(game.GameID) as unknown as Race[];
 
         return {
           ...game,
@@ -55,3 +55,4 @@ export const registerGamesResource = (server: McpServer) => {
     }
   });
 };
+

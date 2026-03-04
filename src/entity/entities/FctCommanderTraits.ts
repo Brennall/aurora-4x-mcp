@@ -21,3 +21,4 @@ export class FctCommanderTraits {
   @Column("integer", { name: "GameID", nullable: true, default: () => "16" })
   gameId: number | null;
 }
+

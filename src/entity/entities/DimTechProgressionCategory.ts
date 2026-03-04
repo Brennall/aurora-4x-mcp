@@ -64,3 +64,4 @@ export class DimTechProgressionCategory {
   @Column('boolean', { name: 'Eldar', nullable: true, default: () => 'FALSE' })
   eldar: boolean | null;
 }
+

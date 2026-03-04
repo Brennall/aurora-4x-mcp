@@ -36,3 +36,4 @@ export class FctAlienGroundUnitClass {
   })
   weaponsKnown: boolean | null;
 }
+

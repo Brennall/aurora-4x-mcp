@@ -31,3 +31,4 @@ export class FctSurveyLocation {
   @Column('double', { name: 'Ycor', nullable: true, default: () => '0' })
   ycor: number | null;
 }
+

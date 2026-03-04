@@ -91,3 +91,4 @@ export const registerGetTableDetailsTool = (server: McpServer) => {
     }
   );
 };
+

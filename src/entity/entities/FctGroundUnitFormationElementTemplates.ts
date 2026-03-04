@@ -14,3 +14,4 @@ export class FctGroundUnitFormationElementTemplates {
   @Column('integer', { name: 'Units', nullable: true })
   units: number | null;
 }
+

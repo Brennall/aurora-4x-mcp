@@ -72,3 +72,4 @@ export class FctAlienRaceSensor {
   })
   actualGroundUnitClass: number | null;
 }
+

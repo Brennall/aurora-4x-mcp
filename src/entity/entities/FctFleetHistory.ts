@@ -18,3 +18,4 @@ export class FctFleetHistory {
   @Column('double', { name: 'GameTime', nullable: true, default: () => 'NULL' })
   gameTime: number | null;
 }
+

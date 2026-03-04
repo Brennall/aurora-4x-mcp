@@ -45,7 +45,7 @@ export const registerGetEmpireFleetTool = (server: McpServer) => {
             gameId,
             raceId,
             gameId
-          ) as FleetStats;
+          ) as unknown as FleetStats;
 
         // Get breakdown by ship class
         const classBreakdown = db
@@ -64,7 +64,7 @@ export const registerGetEmpireFleetTool = (server: McpServer) => {
             GROUP BY c.ClassName, h.Description
             ORDER BY TotalTonnage DESC`
           )
-          .all(raceId, gameId) as ShipClassBreakdown[];
+          .all(raceId, gameId) as unknown as ShipClassBreakdown[];
 
         // TODO: Get ships under construction
         // const shipsUnderConstruction = db.prepare(`
@@ -124,3 +124,4 @@ export const registerGetEmpireFleetTool = (server: McpServer) => {
     }
   );
 };
+

@@ -28,3 +28,4 @@ export class FctPopInstallationDemand {
   })
   nonEssential: boolean | null;
 }
+

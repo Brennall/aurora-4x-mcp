@@ -8,3 +8,4 @@ export const registerPrompts = (server: McpServer) => {
   registerCouncilRoleplayPrompt(server);
   registerMonthlyReportPrompt(server);
 };
+

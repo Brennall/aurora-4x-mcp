@@ -24,3 +24,4 @@ export class FctRaceNameThemes {
   @Column("integer", { name: "GameID", nullable: true })
   gameId: number | null;
 }
+

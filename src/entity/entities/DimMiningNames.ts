@@ -13,3 +13,4 @@ export class DimMiningNames {
   })
   miningName: string | null;
 }
+

@@ -51,3 +51,4 @@ export class FctShippingWealthData {
   })
   destinationPop: number | null;
 }
+

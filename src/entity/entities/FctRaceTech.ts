@@ -24,3 +24,4 @@ export class FctRaceTech {
   })
   obsolete: boolean | null;
 }
+

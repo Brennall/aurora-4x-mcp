@@ -25,3 +25,4 @@ export class FctGroundUnitSeriesClass {
   @Column('integer', { name: 'Priority', nullable: true, default: () => '0' })
   priority: number | null;
 }
+

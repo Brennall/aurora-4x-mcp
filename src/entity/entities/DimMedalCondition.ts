@@ -32,3 +32,4 @@ export class DimMedalCondition {
   })
   displayOrder: number | null;
 }
+

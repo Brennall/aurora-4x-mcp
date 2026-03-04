@@ -59,3 +59,4 @@ export class DimGroundUnitBaseType {
   })
   displayOrder: number | null;
 }
+

@@ -30,3 +30,4 @@ export class DimResearchField {
   })
   doNotDisplay: boolean | null;
 }
+

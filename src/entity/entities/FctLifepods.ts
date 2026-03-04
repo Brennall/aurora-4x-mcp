@@ -62,3 +62,4 @@ export class FctLifepods {
   })
   gradePoints: number | null;
 }
+

@@ -61,7 +61,7 @@ export const registerInitializationPrompt = (
         .prepare(
           'SELECT GameID, GameName, GameTime, StartYear FROM FCT_Game ORDER BY GameID'
         )
-        .all() as GameWithRaces[];
+        .all() as unknown as GameWithRaces[];
 
       // Get player races for each game
       const gamesWithRaces = games.map((game) => {
@@ -119,3 +119,4 @@ export const registerInitializationPrompt = (
     }
   });
 };
+

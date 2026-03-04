@@ -22,3 +22,4 @@ export class FctClassSc {
   @Column("integer", { name: "Number", nullable: true, default: () => "0" })
   number: number | null;
 }
+

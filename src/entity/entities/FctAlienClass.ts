@@ -157,3 +157,4 @@ export class FctAlienClass {
   })
   missileJammerStrength: number | null;
 }
+

@@ -24,3 +24,4 @@ export class DimEmpireTitles {
   })
   maxChance: number | null;
 }
+

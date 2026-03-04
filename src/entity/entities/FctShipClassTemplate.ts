@@ -99,3 +99,4 @@ export class FctShipClassTemplate {
   })
   maintPriority: number | null;
 }
+

@@ -4,3 +4,4 @@ import { registerGamesResource } from './games';
 export const registerResources = (server: McpServer) => {
   registerGamesResource(server);
 };
+

@@ -18,3 +18,4 @@ export class FctDecoyAssignment {
   })
   launcherNum: number | null;
 }
+

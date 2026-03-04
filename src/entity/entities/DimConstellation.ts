@@ -80,3 +80,4 @@ export class DimConstellation {
   @Column('text', { name: 'Omega', nullable: true })
   omega: string | null;
 }
+

@@ -11,3 +11,4 @@ export class FctStoDetected {
   @PrimaryColumn('integer', { name: 'DetectingRaceID' })
   detectingRaceId: number;
 }
+

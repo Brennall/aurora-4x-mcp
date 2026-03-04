@@ -326,3 +326,4 @@ export class FctFleet {
   })
   escapeTimeRemaining: number | null;
 }
+

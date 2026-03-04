@@ -13,3 +13,4 @@ export class DimShipyardCompanies {
   })
   suffix: string | null;
 }
+

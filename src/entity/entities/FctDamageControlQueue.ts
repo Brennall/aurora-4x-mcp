@@ -18,3 +18,4 @@ export class FctDamageControlQueue {
   @PrimaryColumn('integer', { name: 'ComponentID' })
   componentId: number;
 }
+

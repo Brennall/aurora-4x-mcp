@@ -69,3 +69,4 @@ export function convertAuroraDateTime(
     ).padStart(2, '0')}`,
   };
 }
+

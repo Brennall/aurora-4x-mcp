@@ -73,3 +73,4 @@ export class FctSystem {
   })
   supernovaElapsedTime: number | null;
 }
+

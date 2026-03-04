@@ -43,3 +43,4 @@ export class FctRaceJumpPointSurvey {
   })
   ignoreForDistance: number | null;
 }
+

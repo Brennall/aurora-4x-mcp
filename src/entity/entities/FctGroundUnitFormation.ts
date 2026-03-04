@@ -114,3 +114,4 @@ export class FctGroundUnitFormation {
   @Column("integer", { name: "OrgLinkID", nullable: true, default: () => "0" })
   orgLinkId: number | null;
 }
+

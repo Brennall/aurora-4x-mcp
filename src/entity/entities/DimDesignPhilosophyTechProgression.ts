@@ -52,3 +52,4 @@ export class DimDesignPhilosophyTechProgression {
   })
   checkList: boolean | null;
 }
+

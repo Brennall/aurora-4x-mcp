@@ -94,3 +94,4 @@ export class DimStellarType {
   @Column('integer', { name: 'ExtraJP', nullable: true, default: () => '0' })
   extraJp: number | null;
 }
+

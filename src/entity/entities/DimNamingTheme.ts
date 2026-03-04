@@ -13,3 +13,4 @@ export class DimNamingTheme {
   })
   name: string | null;
 }
+

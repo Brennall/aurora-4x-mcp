@@ -54,3 +54,4 @@ export class FctGameLog {
   })
   populationId: number | null;
 }
+

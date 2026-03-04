@@ -56,3 +56,4 @@ export class FctGroundUnitFormationElement {
   @Column('integer', { name: 'ElementID', nullable: true, default: () => '0' })
   elementId: number | null;
 }
+

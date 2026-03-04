@@ -36,3 +36,4 @@ export class FctSystemBodyName {
   })
   name: string | null;
 }
+

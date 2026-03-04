@@ -45,7 +45,7 @@ export const registerGetEmpirePopulationTool = (server: McpServer) => {
             JOIN FCT_Race r ON p.RaceID = r.RaceID AND p.GameID = r.GameID
             WHERE p.RaceID = ? AND p.GameID = ?`
           )
-          .get(raceId, gameId) as PopulationStats;
+          .get(raceId, gameId) as unknown as PopulationStats;
 
         if (!popStats) {
           return {
@@ -74,7 +74,7 @@ export const registerGetEmpirePopulationTool = (server: McpServer) => {
             WHERE p.RaceID = ? AND p.GameID = ? AND p.Population > 0
             ORDER BY p.Population DESC`
           )
-          .all(raceId, gameId) as ColonyDetails[];
+          .all(raceId, gameId) as unknown as ColonyDetails[];
 
         // Get population distribution by system
         const systemDistribution = db
@@ -90,7 +90,7 @@ export const registerGetEmpirePopulationTool = (server: McpServer) => {
             GROUP BY rss.SystemID, rss.Name
             ORDER BY TotalPopulation DESC`
           )
-          .all(raceId, gameId) as SystemDistribution[];
+          .all(raceId, gameId) as unknown as SystemDistribution[];
 
         return {
           content: [
@@ -132,3 +132,4 @@ export const registerGetEmpirePopulationTool = (server: McpServer) => {
     }
   );
 };
+

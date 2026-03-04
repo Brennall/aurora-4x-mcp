@@ -180,3 +180,4 @@ export class DimSolSystemBodies {
   })
   dominantTerrain: number | null;
 }
+

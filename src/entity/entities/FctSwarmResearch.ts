@@ -14,3 +14,4 @@ export class FctSwarmResearch {
   @PrimaryColumn('integer', { name: 'TechSystemID' })
   techSystemId: number;
 }
+

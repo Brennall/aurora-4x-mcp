@@ -24,3 +24,4 @@ export class DimCommanderNames {
   @Column('boolean', { name: 'FamilyName', nullable: true })
   familyName: boolean | null;
 }
+

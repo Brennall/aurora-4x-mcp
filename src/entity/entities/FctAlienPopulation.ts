@@ -106,3 +106,4 @@ export class FctAlienPopulation {
   @Column('double', { name: 'EMSignature', nullable: true, default: () => '0' })
   emSignature: number | null;
 }
+

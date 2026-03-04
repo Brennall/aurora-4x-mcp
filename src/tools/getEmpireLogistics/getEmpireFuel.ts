@@ -42,7 +42,7 @@ export const registerGetEmpireFuelTool = (server: McpServer) => {
             JOIN FCT_Race r ON p.RaceID = r.RaceID AND p.GameID = r.GameID
             WHERE p.RaceID = ? AND p.GameID = ?`
           )
-          .get(raceId, gameId) as FuelStats;
+          .get(raceId, gameId) as unknown as FuelStats;
 
         if (!fuelStats) {
           return {
@@ -74,7 +74,7 @@ export const registerGetEmpireFuelTool = (server: McpServer) => {
             WHERE p.RaceID = ? AND p.GameID = ? AND p.FuelStockpile > 0
             ORDER BY p.FuelStockpile DESC`
           )
-          .all(raceId, gameId) as ColonyFuelDetails[];
+          .all(raceId, gameId) as unknown as ColonyFuelDetails[];
 
         return {
           content: [
@@ -115,3 +115,4 @@ export const registerGetEmpireFuelTool = (server: McpServer) => {
     }
   );
 };
+

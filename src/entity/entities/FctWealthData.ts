@@ -17,3 +17,4 @@ export class FctWealthData {
   @Column('double', { name: 'TimeUsed', nullable: true, default: () => 'NULL' })
   timeUsed: number | null;
 }
+

@@ -31,3 +31,4 @@ export class DimGroundUnitCapability {
   })
   hpEnhancement: number | null;
 }
+

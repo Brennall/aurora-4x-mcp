@@ -11,3 +11,4 @@ export class FctMedalConditionAssignment {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

@@ -48,3 +48,4 @@ export class FctSurvivors {
   })
   gradePoints: number | null;
 }
+

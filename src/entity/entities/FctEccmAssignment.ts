@@ -24,3 +24,4 @@ export class FctEccmAssignment {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

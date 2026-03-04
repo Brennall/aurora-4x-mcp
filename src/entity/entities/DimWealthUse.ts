@@ -28,3 +28,4 @@ export class DimWealthUse {
   })
   displayOrder: number | null;
 }
+

@@ -10,3 +10,4 @@ export const registerGetCombatLogsTools = (server: McpServer) => {
   registerGetFighterCombatLogTool(server);
   registerGetCombatLogTool(server);
 };
+

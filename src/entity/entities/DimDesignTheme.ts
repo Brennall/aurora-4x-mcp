@@ -30,3 +30,4 @@ export class DimDesignTheme {
   })
   specialNprid: number | null;
 }
+

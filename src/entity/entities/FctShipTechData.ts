@@ -28,3 +28,4 @@ export class FctShipTechData {
   })
   techPoints: number | null;
 }
+

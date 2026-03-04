@@ -62,3 +62,4 @@ export class DimPopPoliticalStatus {
   })
   serviceSector: number | null;
 }
+

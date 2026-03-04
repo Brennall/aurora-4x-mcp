@@ -136,3 +136,4 @@ export class FctRaceSysSurvey {
   @Column("integer", { name: "RaidRating", nullable: true, default: () => "0" })
   raidRating: number | null;
 }
+

@@ -47,3 +47,4 @@ export class Formation {
   })
   fleetName: string | null;
 }
+

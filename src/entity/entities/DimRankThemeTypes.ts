@@ -15,3 +15,4 @@ export class DimRankThemeTypes {
   })
   rankDone: number | null;
 }
+

@@ -66,3 +66,4 @@ export class FctGroundUnitTraining {
   })
   fieldPosition: number | null;
 }
+

@@ -34,3 +34,4 @@ export class FctShipCargo {
   @Column('boolean', { name: 'Neutral', nullable: true, default: () => '0' })
   neutral: boolean | null;
 }
+

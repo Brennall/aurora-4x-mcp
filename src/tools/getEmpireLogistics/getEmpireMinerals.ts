@@ -101,7 +101,7 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
             FROM FCT_Population 
             WHERE RaceID = ? AND GameID = ?`
           )
-          .get(raceId, gameId) as Minerals;
+          .get(raceId, gameId) as unknown as Minerals;
 
         if (!empireMinerals) {
           return {
@@ -150,7 +150,7 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
               )
             ORDER BY PopulationID`
           )
-          .all(raceId, gameId) as ColonyMinerals[];
+          .all(raceId, gameId) as unknown as ColonyMinerals[];
 
         // TODO: Get production vs consumption rates
         // Query should join FCT_Population with production-related tables
@@ -160,7 +160,7 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
         //   FROM FCT_Population p
         //   JOIN ... production tables ...
         //   WHERE RaceID = ? AND GameID = ?
-        // `).get(raceId, gameId) as MineralFlowRates;
+        // `).get(raceId, gameId) as unknown as MineralFlowRates;
 
         // Get mineral deposits in controlled systems
         //FIXME DOESN'T WORK
@@ -273,7 +273,7 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
             raceId,
             raceId,
             gameId
-          ) as RawMineralDeposit[];
+          ) as unknown as RawMineralDeposit[];
 
         // Transform the raw query results into the desired format
         const systemsMap = new Map<
@@ -340,7 +340,7 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
         //   SELECT ... packet contents ...
         //   FROM FCT_MassDriverPacket mdp
         //   WHERE RaceID = ? AND GameID = ?
-        // `).all(raceId, gameId) as MineralsInTransit[];
+        // `).all(raceId, gameId) as unknown as MineralsInTransit[];
 
         // TODO: Get minerals in transit via cargo ships
         // Query should look at ship cargo holds and their destinations
@@ -350,7 +350,7 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
         //   JOIN ... cargo tables ...
         //   WHERE RaceID = ? AND GameID = ?
         //   AND s.HasCargo = 1
-        // `).all(raceId, gameId) as MineralsInTransit[];
+        // `).all(raceId, gameId) as unknown as MineralsInTransit[];
 
         return {
           content: [
@@ -393,3 +393,4 @@ export const registerGetEmpireMineralsTool = (server: McpServer) => {
     }
   );
 };
+

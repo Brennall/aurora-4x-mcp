@@ -210,3 +210,4 @@ export class FctGroundUnitClass {
   })
   pointDefenceWeapon: boolean | null;
 }
+

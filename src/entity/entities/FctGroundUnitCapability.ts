@@ -11,3 +11,4 @@ export class FctGroundUnitCapability {
   @PrimaryColumn('integer', { name: 'GameID' })
   gameId: number;
 }
+

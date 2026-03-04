@@ -101,3 +101,4 @@ export class FctShipyard {
   })
   parentShipId: number | null;
 }
+

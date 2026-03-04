@@ -24,3 +24,4 @@ export class FctPopComponent {
   @Column("double", { name: "Amount", nullable: true, default: () => "NULL" })
   amount: number | null;
 }
+

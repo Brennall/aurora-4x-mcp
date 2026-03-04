@@ -24,3 +24,4 @@ export class Wormholes {
   @Column('double', { name: 'Ycor', nullable: true, default: () => 'NULL' })
   ycor: number | null;
 }
+

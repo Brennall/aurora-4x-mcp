@@ -143,3 +143,4 @@ export class GovType {
   @Column('integer', { name: 'GAR', nullable: true, default: () => '0' })
   gar: number | null;
 }
+

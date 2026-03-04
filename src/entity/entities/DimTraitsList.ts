@@ -11,3 +11,4 @@ export class DimTraitsList {
   @Column('text', { name: 'Name', nullable: true, default: () => 'NULL' })
   name: string | null;
 }
+

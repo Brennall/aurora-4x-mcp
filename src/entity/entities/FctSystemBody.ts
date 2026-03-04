@@ -261,3 +261,4 @@ export class FctSystemBody {
   })
   fixedBodyParentId: number | null;
 }
+

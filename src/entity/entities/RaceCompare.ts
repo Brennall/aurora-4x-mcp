@@ -88,3 +88,4 @@ export class RaceCompare {
   @Column("integer", { name: "Fuel", nullable: true, default: () => "NULL" })
   fuel: number | null;
 }
+

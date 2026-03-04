@@ -29,3 +29,4 @@ export class FctShipMeasurement {
   })
   strikeGroup: boolean | null;
 }
+

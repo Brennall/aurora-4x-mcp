@@ -26,3 +26,4 @@ export class FctRuinRace {
   @Column('integer', { name: 'Level', nullable: true, default: () => 'NULL' })
   level: number | null;
 }
+
