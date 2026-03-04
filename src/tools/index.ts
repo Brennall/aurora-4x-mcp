@@ -7,15 +7,16 @@ import { registerGetEmpirePopulationTool } from './getEmpirePopulation';
 import { registerSystemConnectionsTool } from './SystemConnectionsTool';
 import { registerGetCombatLogsTools } from './getCombatLogs';
 import { registerGetEmpireLogisticsTools } from './getEmpireLogistics';
+import { registerGetEventLogTool } from './getEventLog';
 
 export const registerTools = (server: McpServer) => {
-  registerQueryTool(server);
-  registerSchemaTools(server);
-  registerGetCurrentDateTool(server);
-  registerGetEmpireFleetTool(server);
-  registerGetEmpirePopulationTool(server);
-  registerGetCombatLogsTools(server);
-  registerGetEmpireLogisticsTools(server);
-  registerSystemConnectionsTool(server);
+    registerQueryTool(server);
+    registerSchemaTools(server);
+    registerGetCurrentDateTool(server);
+    registerGetEmpireFleetTool(server);
+    registerGetEmpirePopulationTool(server);
+    registerGetCombatLogsTools(server);
+    registerGetEmpireLogisticsTools(server);
+    registerSystemConnectionsTool(server);
+    registerGetEventLogTool(server);
 };
-

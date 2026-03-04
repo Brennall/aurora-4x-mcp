@@ -15,7 +15,7 @@ Aurora-4X-MCP is a Model Context Protocol server implementation that enables int
 
 ## Prerequisites
 
-- Node.js (LTS version recommended)
+- Node.js 22+ (required for built-in `node:sqlite` module)
 - npm or yarn package manager
 - Aurora 4X game installation
 - TypeScript knowledge for development
@@ -25,8 +25,8 @@ Aurora-4X-MCP is a Model Context Protocol server implementation that enables int
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/Aurora-4X-MCP.git
-cd Aurora-4X-MCP
+git clone https://github.com/Brennall/aurora-4x-mcp.git
+cd aurora-4x-mcp
 ```
 
 2. Install dependencies:
@@ -38,7 +38,7 @@ npm install
 3. Create a `.env` file in the root directory with your configuration:
 
 ```env
-# Add your environment variables here
+AURORA_DB_PATH=C:\Aurora\AuroraDB.db
 ```
 
 ## MCP Client Configuration
@@ -50,14 +50,14 @@ To connect your MCP client to this server, you'll need to configure it properly.
   "mcpServers": {
     "aurora-4x-mcp": {
       "command": "npm",
-      "args": ["--prefix", "/path/to/Aurora-4X-MCP", "start"],
-      "cwd": "/path/to/Aurora-4X-MCP"
+      "args": ["--prefix", "/path/to/aurora-4x-mcp", "start"],
+      "cwd": "/path/to/aurora-4x-mcp"
     }
   }
 }
 ```
 
-Replace `/path/to/Aurora-4X-MCP` with the actual path where you installed the server.
+Replace `/path/to/aurora-4x-mcp` with the actual path where you installed the server.
 
 ## Usage
 
@@ -88,15 +88,15 @@ npm start
 ## Project Structure
 
 ```
-Aurora-4X-MCP/
+aurora-4x-mcp/
 ├── src/
-│   ├── app.ts           # Main application entry point
-│   ├── db/              # Database related code
-│   ├── tools/           # MCP tools implementation
-│   └── resources/       # MCP resources implementation
-├── dist/                # Compiled JavaScript output
-├── data/                # Data storage
-└── node_modules/        # Dependencies
+│   ├── app.ts          # Main application entry point
+│   ├── db/             # Database related code (node:sqlite wrapper)
+│   ├── tools/          # MCP tools implementation
+│   └── resources/      # MCP resources implementation
+├── dist/               # Compiled JavaScript output
+├── data/               # Data storage
+└── node_modules/       # Dependencies
 ```
 
 ## Dependencies
@@ -104,7 +104,7 @@ Aurora-4X-MCP/
 ### Main Dependencies
 
 - `@modelcontextprotocol/sdk` - MCP protocol implementation
-- `better-sqlite3` - SQLite database interface
+- `node:sqlite` - Node.js built-in SQLite module (Node 22+, no external package required)
 - `dotenv` - Environment configuration
 
 ### Development Dependencies
@@ -127,10 +127,10 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
+- [thirionlogan/Aurora-4X-MCP](https://github.com/thirionlogan/Aurora-4X-MCP) - Original project
 - Aurora 4X game developers
 - Model Context Protocol team
-- Contributors to the project
 
 ## Support
 
-For support, please open an issue in the GitHub repository or contact the maintainers.
+For support, please open an issue in the GitHub repository.
