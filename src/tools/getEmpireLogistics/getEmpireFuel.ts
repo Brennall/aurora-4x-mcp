@@ -21,7 +21,7 @@ interface ColonyFuelDetails {
 export const registerGetEmpireFuelTool = (server: McpServer) => {
   server.tool(
     'getEmpireFuel',
-    'Get the current fuel status for a specific game and race',
+    'Get the current fuel status for a specific game and race. Returns a summary with totalFuel (summed across all colonies), maxRefuellingRate, underwayReplenishmentRate, and fuelProduction from FCT_Race. Also returns a per-colony breakdown listing each colony with fuel stockpile greater than zero, including colony name, system name, body name, and fuel amount — sorted by stockpile descending. Use getEmpireResources for overall production rates, or getEmpireMinerals for Sorium stockpile data.',
     {
       gameId: z.number(),
       raceId: z.number(),

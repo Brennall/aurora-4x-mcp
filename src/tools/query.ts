@@ -5,7 +5,7 @@ import { getDb } from '../db';
 export const registerQueryTool = (server: McpServer) => {
   server.tool(
     'query',
-    'Query the database',
+    'Execute a raw SQL query against the Aurora 4X SQLite database. Takes a single sql string parameter. SELECT queries return an array of row objects; non-SELECT statements return the run result. Use this as a fallback when the structured tools (getEmpirePopulation, getResearchStatus, getShipyardStatus, etc.) do not cover the data needed — for example, querying installation counts, component stockpiles, or individual ship details. Important: CTEs (WITH ... AS) are not supported by this connection; use inline subqueries instead. Always filter by GameID to avoid returning data from other campaigns in the database.',
     { sql: z.string() },
     async ({ sql }) => {
       const db = getDb();

@@ -26,7 +26,7 @@ interface SystemDistribution {
 export const registerGetEmpirePopulationTool = (server: McpServer) => {
   server.tool(
     'getEmpirePopulation',
-    'Get the current population status for a specific game and race',
+    'Get the current population status for a specific game and race. Returns three sections: a summary (race name, colony count, total population), a colonies list (name, population, system name, body name — sorted by population descending), and a systemDistribution grouping colonies by star system with per-system totals. Only includes colonies with population greater than zero. Does not include installation counts, mineral stockpiles, or industrial queue — use getEmpireMinerals for mineral data or the query tool for installation details.',
     {
       gameId: z.number(),
       raceId: z.number(),

@@ -6,7 +6,7 @@ import { convertAuroraDateTime } from '../utils/dateUtils';
 export const registerGetCurrentDateTool = (server: McpServer) => {
   server.tool(
     'getCurrentDate',
-    'Get the current date for a specific game',
+    'Get the current in-game date for a specific game. Returns three formats: raw GameTime (seconds since epoch — use this value as lastGameTime input for getEventLog), calculated date components (year, month, day, hours, minutes, seconds), and a formatted human-readable date string. This is typically the first tool called in any session to establish current game state. GameID must be resolved dynamically — the database contains multiple campaigns.',
     { gameId: z.number() },
     async ({ gameId }) => {
       const db = getDb();

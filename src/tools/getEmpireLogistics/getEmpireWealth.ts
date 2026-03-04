@@ -28,7 +28,7 @@ interface WealthUsage {
 export const registerGetEmpireWealthTool = (server: McpServer) => {
   server.tool(
     'getEmpireWealth',
-    'Get the current wealth status for a specific game and race',
+    'Get the current wealth status for a specific game and race. Returns three sections: current balance (wealth points, annual wealth generation, creation rate), a balanceHistory showing wealth at each recent game increment with formatted timestamps and per-increment change amounts, and a transactions breakdown with categorised income (worker taxes, financial centres) and expenses (research, installation construction, shipbuilding, refits, etc.). This is the primary tool for assessing economic health and tracking wealth trends over time. Does not include mineral or fuel data — use getEmpireMinerals or getEmpireFuel for those.',
     {
       gameId: z.number(),
       raceId: z.number(),

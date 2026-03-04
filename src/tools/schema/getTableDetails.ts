@@ -5,7 +5,7 @@ import { getDb } from '../../db';
 export const registerGetTableDetailsTool = (server: McpServer) => {
   server.tool(
     'getTableDetails',
-    'Get details about a table',
+    'Get the schema details for a specific table in the Aurora 4X database. Takes a tableName string parameter. Returns the table name, an array of columns (each with name, type, required flag, and isPrimaryKey flag), a relationships array, sample data rows, and suggested common queries. Use this after listTables to understand a table structure before writing raw SQL, or to check column names and types. Note: the sample data may come from any game in the database — always filter by GameID in your actual queries.',
     {
       tableName: z.string(),
     },

@@ -19,7 +19,7 @@ interface ShipClassBreakdown {
 export const registerGetEmpireFleetTool = (server: McpServer) => {
   server.tool(
     'getEmpireFleet',
-    'Get the current fleet status for a specific game and race',
+    'Get the current fleet status for a specific game and race. Returns two sections: an overview with total active (non-destroyed) ship count and shipyard summary (count, total capacity in tonnes, total slipways), plus a shipClasses breakdown listing each class with its hull type, ship count, and total tonnage sorted by tonnage descending. Does not include individual ship details, fleet deployment locations, or construction queue — use getShipyardStatus for ships under construction.',
     {
       gameId: z.number(),
       raceId: z.number(),

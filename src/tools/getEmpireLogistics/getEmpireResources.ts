@@ -23,7 +23,7 @@ interface RaceResourceData {
 export const registerGetEmpireResourcesTool = (server: McpServer) => {
   server.tool(
     'getEmpireResources',
-    'Get the current resource status for a specific game and race',
+    'Get the race-level production rates and capacity limits for a specific game and race. Returns two sections: capacities (maintenance supply, ordnance, fighter, max refuelling rate, underway replenishment rate) and production (shipbuilding, fuel, construction, ordnance, fighter, mine, MSP, research, economic modifier). These are the base rates from FCT_Race — they represent empire-wide capability, not per-colony data. Use getEmpireWealth for financial status, getEmpireFuel for fuel stockpiles, or getEmpireMinerals for mineral stocks and deltas.',
     {
       gameId: z.number(),
       raceId: z.number(),

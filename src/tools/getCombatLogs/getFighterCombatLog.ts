@@ -14,7 +14,7 @@ interface CombatLogEntry {
 export const registerGetFighterCombatLogTool = (server: McpServer) => {
   server.tool(
     'getFighterCombatLog',
-    'Get fighter combat logs for a specific game and race',
+    'Get fighter combat logs for a specific game and race, filtered to fighter and small craft engagements. Covers event types 346–348 (fighter combat events). Returns entries with Time, formattedTime, EventType, MessageText, and SystemName, sorted newest first. Use getCombatLog for a combined view across all combat domains.',
     {
       gameId: z.number(),
       raceId: z.number(),

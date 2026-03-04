@@ -14,7 +14,7 @@ interface CombatLogEntry {
 export const registerGetSpaceCombatLogTool = (server: McpServer) => {
   server.tool(
     'getSpaceCombatLog',
-    'Get space combat logs for a specific game and race',
+    'Get space combat logs for a specific game and race, filtered to ship-to-ship engagements only. Covers event types 334–345 (ship combat and damage summaries), boarding events (219–221, 297), ramming (227), and all events flagged as AttackEvent or DamageDisplay in DIM_EventType. Returns entries with Time, formattedTime, EventType, MessageText, and SystemName, sorted newest first. Use getCombatLog for a combined view across all combat domains.',
     {
       gameId: z.number(),
       raceId: z.number(),

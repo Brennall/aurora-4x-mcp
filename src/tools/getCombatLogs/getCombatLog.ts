@@ -14,7 +14,7 @@ interface CombatLogEntry {
 export const registerGetCombatLogTool = (server: McpServer) => {
   server.tool(
     'getCombatLog',
-    'Get combat logs for a specific game and race',
+    'Get all combat logs for a specific game and race, spanning every combat domain: ship-to-ship, ground, fighter, boarding, and ramming. This is the comprehensive combat log tool — use it for a full combat history overview. Returns entries with Time (raw), formattedTime (human-readable date), EventType (description from DIM_EventType), MessageText, and SystemName. Excludes fire delay events and filters commander health events to only combat-related deaths (KIA, destruction). Results are sorted newest first. For domain-specific logs, use getSpaceCombatLog, getGroundCombatLog, or getFighterCombatLog instead.',
     {
       gameId: z.number(),
       raceId: z.number(),

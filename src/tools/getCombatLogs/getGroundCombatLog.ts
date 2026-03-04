@@ -14,7 +14,7 @@ interface CombatLogEntry {
 export const registerGetGroundCombatLogTool = (server: McpServer) => {
   server.tool(
     'getGroundCombatLog',
-    'Get ground combat logs for a specific game and race',
+    'Get ground combat logs for a specific game and race, filtered to planetary and ground force engagements. Covers event types 300–311 (ground combat summaries) and 314 (ground combat intelligence). Returns entries with Time, formattedTime, EventType, MessageText, and SystemName, sorted newest first. Use getCombatLog for a combined view across all combat domains.',
     {
       gameId: z.number(),
       raceId: z.number(),

@@ -16,7 +16,7 @@ export interface SystemConnection {
 export const registerSystemConnectionsTool = (server: McpServer) => {
   server.tool(
     'getSystemConnections',
-    'Get the system connections for a specific game and race',
+    'Get the known star system connection map for a specific game and race. Returns an array of systems, each with a connectedTo list of destination systems reachable via jump points. Each connection includes the destination systemId, systemName, and jumpGateRaceId (0 means no jump gate, greater than 0 means a gate has been constructed by that race). Only includes systems the race has surveyed plus Sol — this is fog-of-war safe. Results are sorted with Sol first, then alphabetically. Useful for understanding the strategic map topology and identifying which jump points have gates constructed.',
     {
       gameId: z.number(),
       raceId: z.number(),
