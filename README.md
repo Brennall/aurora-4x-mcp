@@ -96,8 +96,21 @@ aurora-4x-mcp/
 │   └── resources/      # MCP resources implementation
 ├── dist/               # Compiled JavaScript output
 ├── data/               # Data storage
+├── llms.txt            # AI-friendly tool documentation
 └── node_modules/       # Dependencies
 ```
+
+## AI Documentation
+
+This project includes an [`llms.txt`](llms.txt) file following the [llms.txt specification](https://llmstxt.org/). It provides a complete tool catalogue with parameter descriptions, output schemas, safety constraints, and usage notes — optimised for LLM consumption.
+
+**Want your AI assistant to understand this MCP server?** Point it at the raw file:
+
+```
+Fetch https://raw.githubusercontent.com/Brennall/aurora-4x-mcp/main/llms.txt and read the Aurora 4X MCP documentation
+```
+
+This gives the AI everything it needs to use the tools correctly — what each tool returns, what the parameters mean, and what safety filters are built in — without parsing source code or discovering output shapes by trial and error.
 
 ## Dependencies
 

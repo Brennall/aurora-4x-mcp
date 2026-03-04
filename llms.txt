@@ -1,0 +1,253 @@
+# Aurora 4X MCP Server
+
+> MCP server providing safe, structured access to Aurora 4X game database (SQLite). All tools enforce race/game isolation, spoiler-safe filtering, and noise exclusion. Designed for LLM game assistants managing campaign state across sessions.
+
+## Safety Model
+
+Every tool enforces RaceID and GameID filtering. Ad-hoc SQL queries via the `query` tool bypass these protections — prefer dedicated tools whenever possible. The `query` tool exists as a fallback for queries not yet covered by dedicated tools.
+
+Key safety constraints baked into tools:
+- RaceID filtering prevents leaking alien race data
+- GameID filtering prevents cross-campaign data contamination
+- Event noise filtering excludes routine events that clutter analysis
+- Spoiler-safe joins prevent revealing undiscovered systems or bodies
+
+## Tools
+
+### getEventLog
+Get game events since a given time. Returns chronological event list filtered to the specified race, excluding noise event types (scientist experience, routine fleet movements, etc.). Use this for session-start event review.
+
+**Parameters:**
+- `gameId` (number, required): Game ID — resolve dynamically, never hardcode
+- `raceId` (number, required): Race ID — resolve dynamically, never hardcode
+- `lastGameTime` (number, optional): Return events after this time value. If omitted, returns the 50 most recent events in chronological order.
+
+**Output shape:**
+```json
+{
+  "events": [
+    {
+      "date": "2075-01-14",
+      "eventType": "Research Completed",
+      "eventTypeId": 60,
+      "message": "A science team led by...",
+      "eventTime": 790061400
+    }
+  ],
+  "eventCount": 12,
+  "oldestEventTime": 789000000,
+  "newestEventTime": 790061400
+}
+```
+
+**Notes:**
+- `eventTime` values can be used as `lastGameTime` for the next session
+- `eventTypeId` is included for programmatic event classification
+- Noise events excluded: types 372, 292, 370, 371, 280, 289, 253, 98, 291, 41
+
+### getResearchStatus
+Get current research projects with completion forecasts and unassigned scientists. Active research is pre-sorted by estimated completion date (nearest first). This is structural — do not re-sort by RP remaining or any other field.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+**Output shape:**
+```json
+{
+  "gameDate": "2075-01-14",
+  "activeResearch": [
+    {
+      "scientist": "Dominic Gilbert",
+      "field": "Power and Propulsion",
+      "technology": "Nuclear Gas-Core Engine",
+      "labs": 18,
+      "rpRemaining": 2714,
+      "researchBonus": 1.5,
+      "inField": "YES",
+      "multiplier": 3.0,
+      "annualRP": 6480,
+      "daysRemaining": 153,
+      "estimatedCompletion": "2075-06-16",
+      "healthRisk": 6
+    }
+  ],
+  "unassignedScientists": [
+    {
+      "name": "Jane Smith",
+      "field": "Logistics",
+      "researchBonus": 1.20,
+      "maxLabs": 15,
+      "healthRisk": 1
+    }
+  ]
+}
+```
+
+**Notes:**
+- `inField`: "YES" means the scientist's specialisation matches the tech's research field (4x multiplier formula applies)
+- `multiplier`: The effective research speed multiplier after in-field/out-of-field calculation
+- `healthRisk`: Higher values indicate greater risk of death or retirement. Values 5+ warrant succession planning
+- `researchBonus` of 0 in unassigned scientists indicates a Research Admin, not a researcher
+
+### getEmpireMinerals
+Get mineral stockpiles and per-increment deltas for a specific colony. Output is a key-value array — each mineral is a named object, eliminating column-adjacency confusion (e.g. Corbomite vs Corundium cannot be swapped).
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+- `colony` (string, optional): Colony name. Defaults to "Earth" if omitted.
+
+**Output shape:**
+```json
+{
+  "colony": "Earth",
+  "gameDate": "2075-01-14",
+  "minerals": [
+    { "name": "Duranium", "stock": 106313, "delta": 794 },
+    { "name": "Corbomite", "stock": 43655, "delta": -1482 },
+    { "name": "Corundium", "stock": 8603, "delta": 112 }
+  ]
+}
+```
+
+**Notes:**
+- `delta` is change since last 5-day increment (positive = production exceeds consumption)
+- All 11 minerals are always returned in fixed order: Duranium, Neutronium, Corbomite, Tritanium, Boronide, Mercassium, Vendarite, Sorium, Uridium, Corundium, Gallicite
+- Does not include mineral deposits or surveyed bodies — use the `query` tool with the mineral deposits query for that
+
+### getShipyardStatus
+Get shipyard status including yard capacity/expansion and ships under construction or refit. Expansion progress is held in game memory — the game must be saved before querying for accurate expansion percentages.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+**Output shape:**
+```json
+{
+  "shipyards": [
+    {
+      "name": "Stone & Sons Ltd.",
+      "type": "Commercial",
+      "capacity": 50000,
+      "slipways": 2,
+      "expansion": {
+        "task": "Add 1,000t Capacity",
+        "requiredBP": 480,
+        "completedBP": 237,
+        "percentComplete": 49.4,
+        "remainingBP": 243
+      }
+    }
+  ],
+  "buildTasks": [
+    {
+      "shipyard": "Stone & Sons Ltd.",
+      "unitName": "Flower 007",
+      "className": "Flower v3",
+      "totalBP": 1200,
+      "completedBP": 641,
+      "percentComplete": 53.4,
+      "remainingBP": 559,
+      "paused": false
+    }
+  ]
+}
+```
+
+**Notes:**
+- `expansion` field is only present when a yard has an active expansion task
+- `buildTasks` includes both new construction and refits — check `className` vs `unitName` to distinguish (refit changes the class)
+- `percentComplete` is pre-calculated — do not recalculate from BP values
+
+### getCurrentDate
+Get the current in-game date and raw GameTime value.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+
+**Output:** Game name, formatted date, and raw GameTime (seconds from 2050-01-01).
+
+### getEmpireFleet
+Get fleet composition including ship counts by class, basic ship details. Use this for fleet overview — not for individual ship status.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+### getEmpireWealth
+Get current wealth balance and annual income.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+**Notes:** Wealth is stored in FCT_Race, not FCT_Population.
+
+### getEmpireFuel
+Get fuel stockpiles and harvesting status.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+### getEmpirePopulation
+Get population data for all colonies.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+### getEmpireResources
+Get empire resource overview.
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+### getSystemConnections
+Get known system connections (jump points linking star systems).
+
+**Parameters:**
+- `gameId` (number, required): Game ID
+- `raceId` (number, required): Race ID
+
+### query
+Execute raw SQL against the Aurora database. This is a fallback tool — prefer dedicated tools which have safety filters baked in. When using this tool: always include RaceID and GameID filters, always use parentheses around OR clauses, and never hardcode ID values.
+
+**Parameters:**
+- `sql` (string, required): SQL query to execute
+
+**Limitations:**
+- CTEs (`WITH ... AS`) are silently misrouted — the tool checks for `SELECT` prefix to decide execution method. Workaround: wrap in `SELECT * FROM (WITH ... AS ...)`.
+- No safety filters — caller must include all WHERE clauses manually
+
+### Schema Tools
+- `listTables`: List all database tables
+- `getTableDetails`: Get column info for a table (`tableName` parameter)
+- `searchColumns`: Search for columns across all tables (`columnName` parameter)
+
+### Combat Log Tools
+- `getCombatLog`: All combat logs
+- `getSpaceCombatLog`: Space combat only
+- `getGroundCombatLog`: Ground combat only
+- `getFighterCombatLog`: Fighter combat only
+
+All take `gameId` and `raceId` parameters.
+
+## ID Resolution
+
+GameID and RaceID must always be resolved dynamically. The database contains multiple campaigns — hardcoded IDs silently return wrong-campaign data.
+
+To resolve IDs via the `query` tool:
+```sql
+SELECT RaceID, GameID FROM FCT_Race WHERE RaceName = 'The Commonwealth'
+```
+
+## Date Formula
+
+Aurora stores time as seconds offset from 2050-01-01:
+```sql
+date('2050-01-01', CAST(ROUND(TimeField/86400) AS INTEGER) || ' days')
+```

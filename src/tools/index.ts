@@ -9,6 +9,7 @@ import { registerGetCombatLogsTools } from './getCombatLogs';
 import { registerGetEmpireLogisticsTools } from './getEmpireLogistics';
 import { registerGetEventLogTool } from './getEventLog';
 import { registerGetResearchStatusTool } from './getResearchStatus';
+import { registerGetShipyardStatusTool } from './getShipyardStatus';
 
 export const registerTools = (server: McpServer) => {
     registerQueryTool(server);
@@ -21,4 +22,5 @@ export const registerTools = (server: McpServer) => {
     registerSystemConnectionsTool(server);
     registerGetEventLogTool(server);
     registerGetResearchStatusTool(server);
+    registerGetShipyardStatusTool(server);
 };
