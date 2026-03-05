@@ -11,6 +11,8 @@ import { registerGetEventLogTool } from './getEventLog';
 import { registerGetResearchStatusTool } from './getResearchStatus';
 import { registerGetShipyardStatusTool } from './getShipyardStatus';
 import { registerGetSessionStatusTool } from './getSessionStatus';
+import { registerLogContextTool } from './logContext';
+import { registerGetTechTreeTool } from './getTechTree';
 
 export const registerTools = (server: McpServer) => {
   registerQueryTool(server);
@@ -25,4 +27,6 @@ export const registerTools = (server: McpServer) => {
   registerGetResearchStatusTool(server);
   registerGetShipyardStatusTool(server);
   registerGetSessionStatusTool(server);
+  registerLogContextTool(server);
+  registerGetTechTreeTool(server);
 };

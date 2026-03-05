@@ -7,6 +7,7 @@ import { registerTools } from './tools';
 import { registerResources } from './resources';
 import { registerPrompts } from './prompts';
 import logger from './utils/logger';
+import { enableToolCallLogging } from './utils/toolLogger';  // <-- NEW
 
 dotenv.config();
 logger.info('Environment variables loaded');
@@ -23,13 +24,20 @@ const server = new McpServer({
   name: 'aurora-4x-mcp',
   version: '1.0.0',
 });
+
 logger.info('MCP Server created');
+
+// Enable tool call logging BEFORE registering tools
+enableToolCallLogging(server);  // <-- NEW
+logger.info('Tool call logging enabled');
 
 try {
   registerResources(server);
   logger.info('Resources registered successfully');
+
   registerTools(server);
   logger.info('Tools registered successfully');
+
   registerPrompts(server);
   logger.info('Prompts registered successfully');
 } catch (error) {
@@ -38,6 +46,7 @@ try {
 }
 
 const transport = new StdioServerTransport();
+
 try {
   server.connect(transport);
   logger.info('Server connected successfully');
