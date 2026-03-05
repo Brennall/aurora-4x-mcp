@@ -14,6 +14,7 @@ import { registerGetSessionStatusTool } from './getSessionStatus';
 import { registerLogContextTool } from './logContext';
 import { registerGetTechTreeTool } from './getTechTree';
 import { registerCalculatorTools } from './calculators';
+import { registerViewTools } from './injectViews';
 
 export const registerTools = (server: McpServer) => {
   registerQueryTool(server);
@@ -31,4 +32,5 @@ export const registerTools = (server: McpServer) => {
   registerLogContextTool(server);
   registerGetTechTreeTool(server);
   registerCalculatorTools(server);
+  registerViewTools(server);
 };

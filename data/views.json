@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "description": "Aurora 4X view definitions for injection into AuroraDB.db. Views provide pre-built complex queries accessible via SELECT * FROM vw_name. All views use parameterised race/game scoping via the vw_const base view.",
+  "views": [
+    {
+      "name": "vw_const",
+      "description": "Race and game scoping constants. All other views reference this for RaceID, GameID, and PopulationID filtering. Update RaceName here to switch campaigns.",
+      "dependencies": [],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_const AS SELECT r.RaceID, r.GameID, r.WealthPoints, r.AnnualWealth, p.PopulationID AS HomePopID FROM FCT_Race r JOIN FCT_Population p ON r.RaceID = p.RaceID AND r.GameID = p.GameID AND p.PopName = 'Earth' WHERE r.RaceName = 'The Commonwealth'"
+    },
+    {
+      "name": "vw_game_date",
+      "description": "Current game date in multiple formats. Raw GameTime for event filtering, formatted date for display, and seconds since last construction cycle.",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_game_date AS SELECT g.GameTime, g.StartYear, g.ResearchSpeed, g.LastGrowthTime, g.GameTime - g.LastGrowthTime AS SecondsSinceConstCycle, date('2050-01-01', CAST(ROUND(g.GameTime/86400) AS INTEGER) || ' days') AS FormattedDate, r.Research AS RaceResearch FROM FCT_Game g JOIN vw_const c ON g.GameID = c.GameID JOIN FCT_Race r ON r.GameID = c.GameID AND r.RaceID = c.RaceID"
+    },
+    {
+      "name": "vw_minerals",
+      "description": "Earth colony mineral stocks with per-increment deltas. Key-value rows eliminate column adjacency confusion (the Corbomite/Corundium swap problem).",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_minerals AS SELECT 'Duranium' AS mineral, ROUND(p.Duranium) AS stock, ROUND(p.Duranium - p.LastDuranium) AS delta, 1 AS sort_order FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Neutronium', ROUND(p.Neutronium), ROUND(p.Neutronium - p.LastNeutronium), 2 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Corbomite', ROUND(p.Corbomite), ROUND(p.Corbomite - p.LastCorbomite), 3 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Tritanium', ROUND(p.Tritanium), ROUND(p.Tritanium - p.LastTritanium), 4 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Boronide', ROUND(p.Boronide), ROUND(p.Boronide - p.LastBoronide), 5 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Mercassium', ROUND(p.Mercassium), ROUND(p.Mercassium - p.LastMercassium), 6 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Vendarite', ROUND(p.Vendarite), ROUND(p.Vendarite - p.LastVendarite), 7 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Sorium', ROUND(p.Sorium), ROUND(p.Sorium - p.LastSorium), 8 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Uridium', ROUND(p.Uridium), ROUND(p.Uridium - p.LastUridium), 9 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Corundium', ROUND(p.Corundium), ROUND(p.Corundium - p.LastCorundium), 10 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID UNION ALL SELECT 'Gallicite', ROUND(p.Gallicite), ROUND(p.Gallicite - p.LastGallicite), 11 FROM FCT_Population p JOIN vw_const c ON p.PopulationID = c.HomePopID ORDER BY sort_order"
+    },
+    {
+      "name": "vw_research_active",
+      "description": "Active research projects with completion forecasts. Sorted by estimated completion date (structural, not advisory). Includes scientist name, field, tech, labs, RP remaining, bonus, multiplier, annual RP, days remaining, and completion date.",
+      "dependencies": ["vw_const", "vw_game_date"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_research_active AS SELECT c.Name AS scientist, rf.FieldName AS field, ts.Name AS technology, rp.Facilities AS labs, ROUND(rp.ResearchPointsRequired) AS rp_remaining, COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) AS bonus_value, CASE WHEN c.ResSpecID = dt.FieldID THEN 'YES' ELSE 'NO' END AS in_field, CASE WHEN c.ResSpecID = dt.FieldID THEN ROUND(4 * COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) - 3, 2) ELSE ROUND(COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0), 2) END AS multiplier, ROUND((SELECT gd.RaceResearch * gd.ResearchSpeed / 100.0 FROM vw_game_date gd) * rp.Facilities * CASE WHEN c.ResSpecID = dt.FieldID THEN 4 * COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) - 3 ELSE COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) END) AS annual_rp, ROUND(rp.ResearchPointsRequired / ((SELECT gd.RaceResearch * gd.ResearchSpeed / 100.0 FROM vw_game_date gd) * rp.Facilities * CASE WHEN c.ResSpecID = dt.FieldID THEN 4 * COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) - 3 ELSE COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) END) * 365) AS days_remaining, date('2050-01-01', CAST(ROUND((SELECT gd.GameTime FROM vw_game_date gd) / 86400) AS INTEGER) || ' days', CAST(ROUND(rp.ResearchPointsRequired / ((SELECT gd.RaceResearch * gd.ResearchSpeed / 100.0 FROM vw_game_date gd) * rp.Facilities * CASE WHEN c.ResSpecID = dt.FieldID THEN 4 * COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) - 3 ELSE COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 1.0) END) * 365) AS INTEGER) || ' days') AS est_completion, c.HealthRisk FROM FCT_Commander c JOIN vw_const vc ON c.RaceID = vc.RaceID JOIN FCT_ResearchProject rp ON rp.ProjectID = c.CommandID JOIN FCT_TechSystem ts ON rp.TechID = ts.TechSystemID JOIN DIM_TechType dt ON ts.TechTypeID = dt.TechTypeID JOIN DIM_ResearchField rf ON c.ResSpecID = rf.ResearchFieldID LEFT JOIN FCT_CommanderBonuses cb ON c.CommanderID = cb.CommanderID LEFT JOIN DIM_CommanderBonusType dbt ON cb.BonusID = dbt.BonusID WHERE c.CommanderType = 3 AND c.CommandType = 7 GROUP BY c.CommanderID, c.Name, c.ResSpecID, ts.Name, dt.FieldID, rp.Facilities, rp.ResearchPointsRequired ORDER BY est_completion ASC"
+    },
+    {
+      "name": "vw_scientists_unassigned",
+      "description": "Unassigned scientists with field, research bonus, max labs capacity, and health risk. A bonus of 0 with high maxLabs indicates a Research Admin, not a researcher.",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_scientists_unassigned AS SELECT c.Name AS name, rf.FieldName AS field, COALESCE(MAX(CASE WHEN dbt.Description = 'Research' THEN cb.BonusValue END), 0) AS research_bonus, COALESCE(MAX(CASE WHEN dbt.Description = 'Research Admin' THEN cb.BonusValue END), 0) AS max_labs, c.HealthRisk AS health_risk FROM FCT_Commander c JOIN vw_const vc ON c.RaceID = vc.RaceID JOIN DIM_ResearchField rf ON c.ResSpecID = rf.ResearchFieldID LEFT JOIN FCT_CommanderBonuses cb ON c.CommanderID = cb.CommanderID LEFT JOIN DIM_CommanderBonusType dbt ON cb.BonusID = dbt.BonusID WHERE c.Deceased = 0 AND c.CommanderType = 3 AND c.CommandType = 0 GROUP BY c.CommanderID, c.Name, rf.FieldName ORDER BY research_bonus DESC"
+    },
+    {
+      "name": "vw_construction_queue",
+      "description": "Active construction/production queue with completion estimates. Includes item name, allocation, remaining quantity, BP per unit, and mineral costs.",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_construction_queue AS SELECT ip.Description, ip.Amount, ip.PartialCompletion, ip.ProdPerUnit, ip.Percentage, ip.Pause, ip.Queue, ip.ProductionType, ip.Duranium, ip.Neutronium, ip.Corbomite, ip.Tritanium, ip.Boronide, ip.Mercassium, ip.Vendarite, ip.Sorium, ip.Uridium, ip.Corundium, ip.Gallicite FROM FCT_IndustrialProjects ip JOIN vw_const c ON ip.RaceID = c.RaceID AND ip.GameID = c.GameID AND ip.PopulationID = c.HomePopID WHERE ip.Pause = 0 ORDER BY ip.Queue, ip.Percentage DESC"
+    },
+    {
+      "name": "vw_system_bodies",
+      "description": "Star system bodies with type classification. Filtered to Commonwealth-known systems only via jump point survey. Includes body name, class, type, orbital data, and habitability indicators.",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_system_bodies AS SELECT sb.SystemBodyID, sb.SystemID, sb.Name, sb.PlanetNumber, sb.OrbitalDistance, sb.BodyClass, sb.BodyTypeID, CASE sb.BodyClass WHEN 1 THEN 'Planet' WHEN 2 THEN 'Moon' WHEN 3 THEN 'Asteroid' WHEN 5 THEN 'Comet' ELSE 'Unknown' END AS body_class_name, CASE sb.BodyTypeID WHEN 1 THEN 'Asteroid' WHEN 2 THEN 'Terrestrial' WHEN 3 THEN 'Dwarf Planet' WHEN 4 THEN 'Gas Giant' WHEN 5 THEN 'Super Jovian' WHEN 7 THEN 'Moonlet' WHEN 8 THEN 'Small Moon' WHEN 9 THEN 'Large Moon' WHEN 10 THEN 'Major Moon' WHEN 11 THEN 'Super Moon' WHEN 14 THEN 'Comet' ELSE 'Unknown' END AS body_type_name, sb.Radius, sb.Gravity, sb.Mass, sb.SurfaceTemp, sb.AtmosPress, sb.HydroExt, sb.ParentBodyID, sb.RuinID, sb.AbandonedFactories, sbn.Name AS race_name FROM FCT_SystemBody sb JOIN vw_const c ON sb.GameID = c.GameID LEFT JOIN FCT_SystemBodyName sbn ON sb.SystemBodyID = sbn.SystemBodyID AND sbn.RaceID = c.RaceID WHERE sb.SystemID IN (SELECT DISTINCT jp.SystemID FROM FCT_JumpPoint jp JOIN FCT_RaceJumpPointSurvey rjps ON jp.WarpPointID = rjps.WarpPointID AND rjps.RaceID = c.RaceID AND rjps.GameID = c.GameID WHERE jp.GameID = c.GameID UNION SELECT DISTINCT sb2.SystemID FROM FCT_SystemBody sb2 WHERE sb2.Name = 'Sol' AND sb2.GameID = c.GameID)"
+    },
+    {
+      "name": "vw_surveyed_deposits",
+      "description": "Mineral deposits on geologically surveyed bodies only. Spoiler-safe — only shows deposits the Commonwealth has actually surveyed.",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_surveyed_deposits AS SELECT sbn.Name AS body_name, sb.SystemID, CASE md.MaterialID WHEN 1 THEN 'Duranium' WHEN 2 THEN 'Neutronium' WHEN 3 THEN 'Corbomite' WHEN 4 THEN 'Tritanium' WHEN 5 THEN 'Boronide' WHEN 6 THEN 'Mercassium' WHEN 7 THEN 'Vendarite' WHEN 8 THEN 'Sorium' WHEN 9 THEN 'Uridium' WHEN 10 THEN 'Corundium' WHEN 11 THEN 'Gallicite' END AS mineral, ROUND(md.Amount) AS amount, ROUND(md.Accessibility, 2) AS accessibility, ROUND(md.Amount * md.Accessibility) AS effective_amount FROM FCT_MineralDeposit md JOIN vw_const c ON md.GameID = c.GameID JOIN FCT_SystemBodySurveys sbs ON md.SystemBodyID = sbs.SystemBodyID AND sbs.RaceID = c.RaceID AND sbs.GameID = c.GameID JOIN FCT_SystemBody sb ON md.SystemBodyID = sb.SystemBodyID AND sb.GameID = c.GameID LEFT JOIN FCT_SystemBodyName sbn ON md.SystemBodyID = sbn.SystemBodyID AND sbn.RaceID = c.RaceID ORDER BY sbn.Name, md.MaterialID"
+    },
+    {
+      "name": "vw_health_watch",
+      "description": "Officers with HealthRisk >= 6. Includes role type, assignment status, career start, and years of service.",
+      "dependencies": ["vw_const", "vw_game_date"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_health_watch AS SELECT c.Name, CASE c.CommanderType WHEN 0 THEN 'Naval' WHEN 1 THEN 'Ground' WHEN 2 THEN 'Admin' WHEN 3 THEN 'Scientist' END AS type, CASE WHEN c.CommandType = 0 THEN 'Unassigned' WHEN c.CommandType = 7 THEN 'In Lab' WHEN c.CommandType = 17 THEN 'Research Admin' ELSE 'Assigned' END AS status, date('2050-01-01', CAST(ROUND(c.CareerStart/86400) AS INTEGER) || ' days') AS career_start, CAST((SELECT gd.GameTime FROM vw_game_date gd) - c.CareerStart AS INTEGER) / 31536000 AS years_service, c.HealthRisk FROM FCT_Commander c JOIN vw_const vc ON c.RaceID = vc.RaceID WHERE c.HealthRisk >= 6 AND c.Deceased = 0 ORDER BY c.HealthRisk DESC"
+    },
+    {
+      "name": "vw_jump_points",
+      "description": "Known jump points with gate status and destination. Spoiler-safe via FCT_RaceJumpPointSurvey. Shows gate strength, stabilisation status, and linked system name.",
+      "dependencies": ["vw_const"],
+      "sql": "CREATE VIEW IF NOT EXISTS vw_jump_points AS SELECT jp.WarpPointID, jp.SystemID, jp.Distance, jp.Bearing, jp.JumpGateStrength, jp.JumpGateRaceID, CASE WHEN jp.JumpGateStrength >= 1000 THEN 'Stabilised' WHEN jp.JumpGateStrength > 0 THEN 'Partial' ELSE 'No Gate' END AS gate_status, CASE WHEN jp.WPLink > 0 THEN (SELECT sb.Name FROM FCT_SystemBody sb WHERE sb.SystemID = jp2.SystemID AND sb.BodyClass = 1 AND sb.PlanetNumber = 0 AND sb.GameID = c.GameID LIMIT 1) ELSE 'Unknown' END AS destination_system FROM FCT_JumpPoint jp JOIN vw_const c ON jp.GameID = c.GameID JOIN FCT_RaceJumpPointSurvey rjps ON jp.WarpPointID = rjps.WarpPointID AND rjps.RaceID = c.RaceID AND rjps.GameID = c.GameID LEFT JOIN FCT_JumpPoint jp2 ON jp.WPLink = jp2.WarpPointID AND jp2.GameID = c.GameID ORDER BY jp.SystemID, jp.Distance"
+    }
+  ]
+}

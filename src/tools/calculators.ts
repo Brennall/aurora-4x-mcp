@@ -138,12 +138,13 @@ export const registerCalculatorTools = (server: McpServer) => {
 
   server.tool(
     'calculateTowSpeed',
-    'Calculate tow speed for a tug/pod combination. Pure calculator — no database access, returns instantly. ' +
+    'Calculate tow speed for a tug/towed item combination. Pure calculator — no database access, returns instantly. ' +
       'Uses the confirmed formula: Tow Speed (km/s) = (tugEnginePower / (tugHS + podHS)) × 1,000. ' +
       'All inputs must be provided by the caller (typically from ship class notes in BM or getEmpireFleet output). ' +
-      'Returns: towSpeed (km/s), combinedHS (total hull size of tug + pod). ' +
-      'IMPORTANT: A tractor beam ship can only tow ONE item at a time. Moving multiple pods requires multiple tugs or multiple trips. ' +
-      'There is no tonnage limit on towing — speed is the only constraint. A small tug can tow an enormous pod, just slowly. ' +
+      'Returns: towSpeed (km/s), combinedHS (total hull size of tug + towed item). ' +
+      'Tractor beams can tow any ship or pod, not just pods — the formula applies to any combination. ' +
+      'IMPORTANT: A tractor beam ship can only tow ONE item at a time. Moving multiple items requires multiple tugs or multiple trips. ' +
+      'There is no tonnage limit on towing — speed is the only constraint. A small tug can tow an enormous ship, just slowly. ' +
       'Engine power is the total engine power of the tug (from ship class stats, e.g. Flower v3 = 1,740.8). ' +
       'Hull sizes are in HS (from ship class stats, e.g. Flower v3 = 800 HS, Transport Pod = 1,030 HS).',
     {
