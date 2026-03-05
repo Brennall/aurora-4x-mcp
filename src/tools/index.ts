@@ -13,6 +13,7 @@ import { registerGetShipyardStatusTool } from './getShipyardStatus';
 import { registerGetSessionStatusTool } from './getSessionStatus';
 import { registerLogContextTool } from './logContext';
 import { registerGetTechTreeTool } from './getTechTree';
+import { registerCalculatorTools } from './calculators';
 
 export const registerTools = (server: McpServer) => {
   registerQueryTool(server);
@@ -29,4 +30,5 @@ export const registerTools = (server: McpServer) => {
   registerGetSessionStatusTool(server);
   registerLogContextTool(server);
   registerGetTechTreeTool(server);
+  registerCalculatorTools(server);
 };
